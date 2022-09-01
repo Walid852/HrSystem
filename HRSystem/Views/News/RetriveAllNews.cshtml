@@ -1,0 +1,67 @@
+﻿@model IEnumerable<HRSystem.Models.News>
+<style>
+    .news {
+        width: 100%;
+        border-radius: 10px;
+        background-color: #DFE7EC;
+        margin: 5px;
+        padding: 20px;
+    }
+    .title{
+        text-align:center;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        white-space:break-spaces;
+        font-weight:900;
+    }
+</style>
+<br />
+<dl class="dl-horizontal">
+    <h1>News</h1>
+    <hr />
+    @if (Session["AdminID"] != null)
+    {
+        <p>
+            <a href="@Url.Action("CreatNews","News")" class="btn btn-default" style="background-color: #144361; color: white;"><b><i class="fa fa-plus"></i> Create New</b></a>
+
+        </p>
+    }
+</dl>
+@foreach (var item in Model)
+{
+    
+    <div class="news">
+        <p class="title">@Html.DisplayFor(modelItem => item.Title)</p>
+        <hr />
+        <p class="discription">@Html.DisplayFor(modelItem => item.Description)</p>
+        @if (Session["AdminID"] != null)
+        {
+
+            <a href="@Url.Action("UpdateNews", "News", new { id = item.NewID })" class="btn btn-default" style="background-color: #FFFFFF; color: #163B53 "><i class="fa fa-pencil"></i> Edit</a>
+            <a onclick="Delete(@item.NewID)" class="btn btn-default" style="background-color: #DC0E1D;color:white"><i class="fa fa-trash"></i> Delete</a>
+        }
+        @if (item.PublichedDate != null)
+        {
+         <hr />
+        <p>@Html.DisplayFor(modelItem => item.PublichedDate)</p>
+        }
+
+    </div>
+
+}
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+
+        function Delete(id) {
+            alertify.confirm('Warning', 'Are You Sure to Delete this Record ?', function () {
+
+                window.location.href = '@Url.Action("DeleteNews", "News")/' + id;
+
+            },null );
+        }
+    </script>
+}

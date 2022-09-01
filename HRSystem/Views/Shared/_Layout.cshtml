@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        
+
+        
+
+            .navbar a {
+                float: left;
+                font-size: 16px;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+        .subnav {
+            float: left;
+            overflow: hidden;
+        }
+
+            .subnav .subnavbtn {
+                font-size: 16px;
+                border: none;
+                outline: none;
+                color: white;
+                padding: 14px 16px;
+                background-color: inherit;
+                font-family: inherit;
+                margin: 0;
+            }
+
+            .navbar a:hover, .subnav:hover .subnavbtn {
+                background-color: #265B7D;
+            }
+
+        .subnav-content {
+            display: none;
+            position: absolute;
+            left: 0;
+            background-color: #B6BBBE;
+            width: 100%;
+            z-index: 1;
+        }
+
+            .subnav-content a {
+                float: left;
+                color: black;
+                text-decoration: none;
+                width:10%;
+            }
+
+                .subnav-content a:hover {
+                    background-color: #265B7D;
+                    color: white;
+                }
+
+        .subnav:hover .subnav-content {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top"style="background-color: #042134;border-radius:5px;">
+        <div class="container" >
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("BR Architects", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (Session["AdminID"] == null && Session["EmployeeID"] == null)
+                    {
+                        <div class="subnav">
+                            <button class="subnavbtn">NEWS <i class="fa fa-caret-down"></i></button>
+                            <div class="subnav-content">
+                                @Html.ActionLink("Every Thing", "News", "Home")
+                                @Html.ActionLink("News Egypt", "NewsEgypt", "Home")
+                                @Html.ActionLink("News United States", "NewsUS", "Home")
+                            </div>
+                        </div>
+                    }
+                    @if (Session["AdminID"] != null)
+                    {
+
+                        <li>@Html.ActionLink("News", "RetriveAllNews", "News")</li>
+                        <li>@Html.ActionLink("Employees", "RetriveAllEmployees", "Employee")</li>
+                        <li>@Html.ActionLink("Departments", "RetriveAllDepartment", "Department")</li>
+                        <li>@Html.ActionLink("Requests", "RetriveAllRequests", "Request")</li>
+                        <li>@Html.ActionLink("Permissions", "RetriveAllPermission", "Request")</li>
+                    }
+                    @if (Session["EmployeeID"] != null)
+                    {
+
+                        <li>@Html.ActionLink("News", "RetriveAllNews", "News")</li>
+
+                        <li><a href="@Url.Action("RetriveMyRequests","Request", new { id = Session["EmployeeID"]})"><i class='fas fa-clipboard-check'></i> MyRequests</a></li>
+
+                        <li> <a href="@Url.Action("RetriveMyPermission", "Request", new { id = Session["EmployeeID"]})"><i class='fas fa-coffee'></i>My Permission</a></li>
+
+                    }
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Session["AdminID"] == null && Session["EmployeeID"] == null)
+                    {
+                        <li><a href="@Url.Action("Login", "Login")"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    }
+                    @if (Session["AdminID"] != null || Session["EmployeeID"] != null)
+                    {
+                        if (Session["EmployeeID"] != null)
+                        {
+                            <li><a href="@Url.Action("UpdateEmployee","Employee", new { id = Session["EmployeeID"]})"><i class='far fa-user-circle'></i> <b> Profile</b></a></li>
+                        }
+                         <li><a href="@Url.Action("Logout", "Login")"><span class="glyphicon glyphicon-log-in"></span> Log out</a></li>
+                      }
+                        </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - e-finance</p>
+        </footer>
+    </div>
+    <script src="~/Scripts/alertify.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

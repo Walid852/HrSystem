@@ -1,0 +1,86 @@
+﻿@model IEnumerable<HRSystem.Models.Request>
+<br />
+<br />
+
+<dl class="dl-horizontal">
+    <h4>Permission</h4>
+    <hr />
+</dl>
+<table class="table table-striped">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentId)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+
+
+        <th width="300px"> Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentId)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfHours)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+
+            <td>
+                <a href="@Url.Action("UpdateRequest","Request", new { id = item.ID })" class="btn btn-default" style="background-color: #79C87A;color:white;"><b><i class='fas fa-comment-dots'></i> Reply</b></a>
+                <a href="@Url.Action("Details","Request", new { id = item.ID })" class="btn btn-default"><b> Details</b></a>
+            </td>
+        </tr>
+    }
+
+</table>
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+
+        function Delete(id) {
+            alertify.confirm('Warning', 'Are You Sure to Delete this Record ?', function () {
+
+                window.location.href = '@Url.Action("DeleteRequest", "Request")/' + id;
+
+            },null );
+        }
+    </script>
+}
+

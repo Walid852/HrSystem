@@ -1,0 +1,89 @@
+﻿
+@model IEnumerable<HRSystem.Models.Request>
+<br />
+<br />
+<dl class="dl-horizontal">
+    <h4>My Permission</h4>
+    <hr />
+    <p>
+        
+        <a href="@Url.Action("CreatPermission","Request")" class="btn btn-default"style="background-color: #79C87A;color: white;"><b><i class="fa fa-plus"></i> Create Permission</b></a>
+    </p>
+</dl>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HrName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfHours)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Response)
+        </th>
+        <th width="300px"> Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HrName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfHours)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            
+
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Response)
+            </td>
+            <td>
+                @if (item.status == "pending")
+                {
+                    <a href="@Url.Action("UpdateRequest", "Request", new { id = item.ID })" class="btn btn-default" style="background-color: #79C87A; color: white"><i class="fa fa-pencil"></i> Edit</a>
+                }
+                <a href="@Url.Action("Details","Request", new { id = item.ID })" class="btn btn-default"><b>Details</b> </a>
+                <a onclick="Delete(@item.ID)" class="btn btn-default" style="background-color: #DC0E1D;color:white"><i class="fa fa-trash"></i> Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+
+        function Delete(id) {
+            alertify.confirm('Warning', 'Are You Sure to Delete this Record ?', function () {
+
+                window.location.href = '@Url.Action("DeleteRequest", "Request")/' + id;
+
+            },null );
+        }
+    </script>
+}

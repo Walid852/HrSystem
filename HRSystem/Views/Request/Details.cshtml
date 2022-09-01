@@ -1,0 +1,108 @@
+﻿@model HRSystem.Models.Request
+
+<div>
+    <h4>Request</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HrName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HrName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.from)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.from)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.To)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.To)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Response)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Response)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

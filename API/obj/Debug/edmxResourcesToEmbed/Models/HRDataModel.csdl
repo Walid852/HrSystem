@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Postion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="Salary" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+    <Property Name="Photo" Type="String" MaxLength="355" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="HrDbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Departments" EntityType="Models.Department" />
+    <EntitySet Name="Admins" EntityType="Models.Admin" />
+    <EntitySet Name="Requests" EntityType="Models.Request" />
+    <EntitySet Name="sysdiagrams" EntityType="Models.sysdiagram" />
+    <EntitySet Name="News" EntityType="Models.News" />
+  </EntityContainer>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MangerId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="1000" FixedLength="true" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="Salary" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+    <Property Name="AdminId" Type="Int32" />
+    <Property Name="Photo" Type="String" MaxLength="355" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="HrName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+    <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+    <Property Name="from" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="To" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NumberOfDay" Type="Int32" />
+    <Property Name="NumberOfHours" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="Response" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="NewID" />
+    </Key>
+    <Property Name="NewID" Type="Int32" Nullable="false" />
+    <Property Name="AdminID" Type="Int32" />
+    <Property Name="AdminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PublichedDate" Type="DateTime" Precision="3" />
+    <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>
